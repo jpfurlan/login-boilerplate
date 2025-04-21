@@ -1,0 +1,53 @@
+<div class="login-container">
+    <mat-card class="login-card">
+      <h1 class="title">Criar Conta</h1>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="firstName" required />
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Sobrenome</mat-label>
+          <input matInput formControlName="lastName" required />
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="phoneNumber" required />
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Gênero</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="MALE">Masculino</mat-option>
+            <mat-option value="FEMALE">Feminino</mat-option>
+            <mat-option value="OTHER">Outro</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+  
+        <div class="links-container">
+          <a class="link" routerLink="/login" >Já tenho conta</a>
+        </div>
+  
+        <button mat-raised-button color="primary" class="login-button" type="submit">
+          Cadastrar
+        </button>
+      </form>
+    </mat-card>
+  </div>
+  
