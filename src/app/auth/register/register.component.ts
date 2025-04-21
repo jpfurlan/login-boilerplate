@@ -55,8 +55,6 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) return;
     this.auth.register(this.registerForm.value).subscribe({
       next: response => {
-        console.log("response: " + JSON.stringify(response))
-        // if(response.status == '')
         this.snackBar.open('Código OTP enviado para seu e-mail.', 'Fechar', { duration: 3000 });
         this.router.navigate(['/verify']);
       },

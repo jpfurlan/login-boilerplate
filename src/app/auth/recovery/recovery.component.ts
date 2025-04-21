@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recovery',
@@ -19,7 +20,8 @@ import { Router, RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
-    RouterModule
+    RouterModule,
+    MatIcon
   ],
   templateUrl: './recovery.component.html',
   styleUrls: ['./recovery.component.scss']

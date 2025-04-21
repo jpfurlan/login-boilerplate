@@ -1,5 +1,11 @@
 <div class="login-container">
     <mat-card class="login-card">
+      
+      <a class="back-link" routerLink="/login">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </a>
+      
       <h1 class="title">Verificar Código</h1>
   
       <form [formGroup]="verifyForm" (ngSubmit)="onVerify()">
@@ -8,11 +14,7 @@
           <mat-label>OTP</mat-label>
           <input matInput formControlName="otp" maxlength="6" />
         </mat-form-field>
-  
-        <div class="links-container">
-          <a class="link" routerLink="/login">Voltar</a>
-        </div>
-  
+
         <button mat-raised-button color="primary" class="login-button" type="submit">
           Verificar
         </button>

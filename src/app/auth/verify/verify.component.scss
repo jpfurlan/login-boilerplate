@@ -50,3 +50,25 @@
     }
   }
   
+  .back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  .login-card {
+    position: relative; /* Necessário para o posicionamento absoluto do .back-link */
+    padding-top: 60px;   /* Espaço extra para o botão voltar */
+  }
+  

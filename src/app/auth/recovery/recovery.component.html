@@ -1,5 +1,9 @@
 <div class="login-container">
     <mat-card class="login-card">
+      <a class="back-link" routerLink="/login">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </a>
       <h1 class="title">Esqueci a Senha</h1>
   
       <form [formGroup]="recoveryForm" (ngSubmit)="onSendOtp()">
@@ -7,10 +11,6 @@
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" />
         </mat-form-field>
-  
-        <div class="links-container">
-          <a class="link" routerLink="/login">Voltar</a>
-        </div>
   
         <button mat-raised-button color="primary" class="login-button" type="submit">
           Enviar OTP

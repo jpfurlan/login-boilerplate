@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/products']);
       },
       error: err => {
-        console.log(err.status)
         this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
         if(err.status == '401') {
           this.router.navigate(['/verify'], {
