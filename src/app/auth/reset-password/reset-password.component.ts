@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-reset-password',
@@ -21,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
@@ -31,6 +33,7 @@ export class ResetPasswordComponent implements OnInit {
   hidePassword = true;
   email: string = '';
   flow: string = '';
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -52,6 +55,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onResetPassword() {
+    this.loading = true;
     if (this.resetForm.invalid) return;
 
     if (this.resetForm.value.password !== this.resetForm.value.confirmPassword) {
@@ -61,10 +65,14 @@ export class ResetPasswordComponent implements OnInit {
 
     this.auth.resetPassword(this.resetForm.value).subscribe({
       next: () => {
+        this.loading = false;
         this.snackBar.open('Senha redefinida com sucesso.', 'Fechar', { duration: 3000 });
         this.router.navigate(['/login']);
       },
-      error: err => this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 }),
+      error: err => {
+        this.loading = false;
+        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
+      }
     });
   }
 }

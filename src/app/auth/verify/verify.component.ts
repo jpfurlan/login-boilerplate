@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-verify',
@@ -21,7 +22,8 @@ import { MatIcon } from '@angular/material/icon';
     MatButtonModule,
     MatCardModule,
     RouterModule,
-    MatIcon
+    MatIcon,
+    MatProgressSpinnerModule
   ],
   templateUrl: './verify.component.html',
   styleUrls: ['./verify.component.scss']
@@ -30,6 +32,7 @@ export class VerifyComponent implements OnInit {
   verifyForm!: FormGroup;
   email: string = '';
   flow: string = '';
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -50,9 +53,11 @@ export class VerifyComponent implements OnInit {
   }
 
   onVerify() {
+    this.loading = true;
     if (this.verifyForm.invalid) return;
     this.auth.verify(this.verifyForm.value).subscribe({
       next: () => {
+        this.loading = false;
         if(this.flow == 'recovery') {
           this.snackBar.open('Agora altere sua senha.', 'Fechar', { duration: 3000 });
           this.router.navigate(['/reset-password'], {
@@ -67,7 +72,10 @@ export class VerifyComponent implements OnInit {
         }
 
       },
-      error: err => this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 }),
+      error: err => {
+        this.loading = false;
+        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
+      } 
     });
   }
 }

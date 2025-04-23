@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,8 @@ import { Router, RouterModule } from '@angular/router';
     MatCardModule,
     MatIconModule,
     MatSelectModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -39,6 +41,8 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
+  loading = false;
+
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -52,13 +56,16 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister() {
+    this.loading = true;
     if (this.registerForm.invalid) return;
     this.auth.register(this.registerForm.value).subscribe({
       next: response => {
+        this.loading = false;
         this.snackBar.open('Código OTP enviado para seu e-mail.', 'Fechar', { duration: 3000 });
         this.router.navigate(['/verify']);
       },
       error: err => {
+        this.loading = false;
         this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
         if(err.status == '409') {
           this.router.navigate(['/login']);
