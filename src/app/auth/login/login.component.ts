@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { AuthService } from '../auth.service';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   hidePassword = true;
+  loading = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -46,15 +49,19 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.loading = true;
+  
     this.authService.login(this.loginForm.value).subscribe({
       next: res => {
+        this.loading = false;
         localStorage.setItem('accessToken', res.accessToken);
-        this.snackBar.open("logou",'Fechar', { duration: 3000 })
+        this.snackBar.open("logou", 'Fechar', { duration: 3000 });
         this.router.navigate(['/products']);
       },
       error: err => {
-        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
-        if(err.status == '401') {
+        this.loading = false;
+        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 });
+        if (err.status === 401) {
           this.router.navigate(['/verify'], {
             state: { email: this.loginForm.value.email, flow: 'verify' }
           });
@@ -62,4 +69,5 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+  
 }

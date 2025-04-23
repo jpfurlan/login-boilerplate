@@ -6,12 +6,8 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput placeholder="Digite seu email" formControlName="email" type="email" />
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-          Email é obrigatório.
-        </mat-error>
-        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
-          Email inválido.
-        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email é obrigatório.</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Email inválido.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -20,9 +16,7 @@
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-          Senha é obrigatória.
-        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Senha é obrigatória.</mat-error>
       </mat-form-field>
 
       <div class="links-container">
@@ -30,9 +24,13 @@
         <a class="link" routerLink="/register">Criar conta</a>
       </div>
 
-      <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid">
+      <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid || loading">
         ENTRAR
       </button>
     </form>
   </mat-card>
+</div>
+
+<div class="overlay" *ngIf="loading">
+  <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
 </div>
