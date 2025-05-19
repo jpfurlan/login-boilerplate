@@ -11,6 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import {
+  CountryISO,
+  SearchCountryField,
+} from 'ngx-intl-tel-input';
+
 
 @Component({
   selector: 'app-register',
@@ -25,7 +31,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatSelectModule,
     RouterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxIntlTelInputModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -61,16 +68,25 @@ export class RegisterComponent implements OnInit {
     this.auth.register(this.registerForm.value).subscribe({
       next: response => {
         this.loading = false;
-        this.snackBar.open('Código OTP enviado para seu e-mail.', 'Fechar', { duration: 3000 });
-        this.router.navigate(['/verify']);
+        this.snackBar.open(
+          'Código OTP enviado para seu e-mail.',
+          'Fechar',
+          { duration: 3000 }
+        );
+        this.router.navigate(['/verify'], {
+          state: { email: this.registerForm.value.email }
+        });
       },
       error: err => {
         this.loading = false;
-        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
-        if(err.status == '409') {
+        this.snackBar.open(err.error.message, 'Fechar', {
+          duration: 3000
+        });
+        if (err.status === 409) {
           this.router.navigate(['/login']);
         }
       }
     });
   }
+  
 }

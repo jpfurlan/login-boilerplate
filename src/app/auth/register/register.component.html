@@ -49,9 +49,12 @@
           <a class="link" routerLink="/login" >Já tenho conta</a>
         </div>
   
-        <button mat-raised-button color="primary" class="login-button" type="submit">
+        <button
+          mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid"
+          [ngClass]="{'login-button': registerForm.valid, 'login-button-disabled': !registerForm.valid}">
           Cadastrar
         </button>
+      
       </form>
     </mat-card>
   </div>
