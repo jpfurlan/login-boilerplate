@@ -11,12 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import {
-  CountryISO,
-  SearchCountryField,
-} from 'ngx-intl-tel-input';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +28,7 @@ import {
     MatSelectModule,
     RouterModule,
     MatProgressSpinnerModule,
-    NgxIntlTelInputModule
+    MatDialogModule 
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -45,7 +41,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {}
 
   loading = false;
@@ -79,12 +76,16 @@ export class RegisterComponent implements OnInit {
       },
       error: err => {
         this.loading = false;
-        this.snackBar.open(err.error.message, 'Fechar', {
-          duration: 3000
-        });
-        if (err.status === 409) {
+        if (err.error.status == 'ALREADY_VERIFIED') {
+          this.alert.warning("Conta já existe, faça o login para verificar");
           this.router.navigate(['/login']);
+        } else if(err.error.status == 'PENDING_VERIFICATION'){
+          this.alert.success("Conta já existe mas não foi verificada, faça o login");
+          this.router.navigate(['/login'], {
+            state: { email: this.registerForm.value.email }
+          });
         }
+
       }
     });
   }

@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {}
 
   hidePassword = true;
@@ -61,7 +63,9 @@ export class LoginComponent implements OnInit {
       error: err => {
         this.loading = false;
         this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 });
-        if (err.status === 401) {
+        
+      if(err.error.status == 'PENDING_VERIFICATION'){
+        this.alert.success("A conta com o email " + this.loginForm.value.email + " ainda não foi verificada, verifique o código enviado por email");
           this.router.navigate(['/verify'], {
             state: { email: this.loginForm.value.email, flow: 'verify' }
           });
