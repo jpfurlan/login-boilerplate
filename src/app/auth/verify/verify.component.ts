@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-verify',
@@ -38,7 +39,8 @@ export class VerifyComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
     const navigation = history.state;
     this.email = navigation.email || '';
@@ -50,6 +52,7 @@ export class VerifyComponent implements OnInit {
       email: [this.email],
       otp: ['', Validators.required],
     });
+    this.alert.success("Código OTP enviado para o email " + this.email);
   }
 
   onVerify() {
