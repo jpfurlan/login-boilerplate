@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -39,7 +40,8 @@ export class ResetPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
     const navigation = history.state;
     this.email = navigation.email || '';
@@ -66,8 +68,11 @@ export class ResetPasswordComponent implements OnInit {
     this.auth.resetPassword(this.resetForm.value).subscribe({
       next: () => {
         this.loading = false;
-        this.snackBar.open('Senha redefinida com sucesso.', 'Fechar', { duration: 3000 });
-        this.router.navigate(['/login']);
+        //this.snackBar.open('Senha redefinida com sucesso.', 'Fechar', { duration: 3000 });
+        this.alert.success("Senha redefinida com sucesso., faça o login ");
+        this.router.navigate(['/login'], {
+          state: { email: this.resetForm.value.email }
+        });
       },
       error: err => {
         this.loading = false;

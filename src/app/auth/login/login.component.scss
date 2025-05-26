@@ -115,3 +115,8 @@
   align-items: center;
   z-index: 1000;
 }
+
+.eye-buttons {
+  display: flex;
+  gap: 4px; // ajusta o espaçamento entre os ícones
+}

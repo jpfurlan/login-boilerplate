@@ -12,12 +12,34 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Senha</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Digite sua senha" formControlName="password" />
-        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Digite sua senha"
+          formControlName="password"
+        />
+      
+        <!-- Aqui só existe UM matSuffix -->
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="hidePassword ? 'Mostrar senha' : 'Ocultar senha'"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
         </button>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Senha é obrigatória.</mat-error>
+      
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Senha é obrigatória.
+        </mat-error>
       </mat-form-field>
+      
+      
+
 
       <div class="links-container">
         <a class="link" routerLink="/recovery">Esqueci minha senha</a>

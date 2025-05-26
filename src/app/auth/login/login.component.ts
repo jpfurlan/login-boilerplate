@@ -31,6 +31,8 @@ import { AlertService } from '../../shared/alert.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  email: string = '';
+  flow: string = '';
 
   constructor(
     private authService: AuthService,
@@ -38,14 +40,18 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private alert: AlertService
-  ) {}
+  ) {
+    const navigation = history.state;
+    this.email = navigation.email || '';
+    this.flow = navigation.flow || '';
+  }
 
   hidePassword = true;
   loading = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [this.email, [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }

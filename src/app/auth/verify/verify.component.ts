@@ -67,11 +67,17 @@ export class VerifyComponent implements OnInit {
             state: { email: this.email, flow: 'recovery' }
           });
         } else if(this.flow == 'verify') {
-          this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
-          this.router.navigate(['/login'])
+          this.alert.success("Conta verificada com sucesso, faça o login");
+          //this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
+          this.router.navigate(['/login'], {
+            state: { email: this.verifyForm.value.email }
+          });
         } else {
-          this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
-          this.router.navigate(['/login']);
+          this.alert.success("Conta verificada com sucesso, faça o login ");
+          //this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
+          this.router.navigate(['/login'], {
+            state: { email: this.verifyForm.value.email }
+          });
         }
 
       },

@@ -84,6 +84,9 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login'], {
             state: { email: this.registerForm.value.email }
           });
+        } else {
+          this.alert.warning(err.error.password);
+          console.log(err)
         }
 
       }
