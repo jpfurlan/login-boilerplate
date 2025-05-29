@@ -13,6 +13,8 @@ import { Router, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AlertService } from '../../shared/alert.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RegisterRequest, Gender } from '../../models/register-request.model';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +30,8 @@ import { AlertService } from '../../shared/alert.service';
     MatSelectModule,
     RouterModule,
     MatProgressSpinnerModule,
-    MatDialogModule 
+    MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -42,8 +45,19 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private alert: AlertService
-  ) {}
+    private alert: AlertService,
+    private translate: TranslateService
+  ) {
+
+  const rawLang = this.translate.getBrowserLang();
+
+  const browserLang: string = (rawLang && rawLang.match(/pt|en/)) 
+    ? rawLang 
+    : 'pt';
+
+  this.translate.setDefaultLang('pt');
+  this.translate.use(browserLang);
+  }
 
   loading = false;
 
@@ -53,7 +67,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
-      gender: ['MALE', Validators.required],
+      gender: [Gender.MALE, Validators.required],
       password: ['', Validators.required],
       role: ['USER']
     });
@@ -62,12 +76,21 @@ export class RegisterComponent implements OnInit {
   onRegister() {
     this.loading = true;
     if (this.registerForm.invalid) return;
+    const payload: RegisterRequest = {
+      firstName:   this.registerForm.value.firstName,
+      lastName:    this.registerForm.value.lastName,
+      email:       this.registerForm.value.email,
+      phoneNumber: this.registerForm.value.phoneNumber,
+      gender:      this.registerForm.value.gender as Gender,
+      password:    this.registerForm.value.password,
+      role:        this.registerForm.value.role
+    };
     this.auth.register(this.registerForm.value).subscribe({
       next: response => {
         this.loading = false;
         this.snackBar.open(
-          'Código OTP enviado para seu e-mail.',
-          'Fechar',
+          this.translate.instant('VERIFY.OTP_SENT'), 
+          this.translate.instant('COMMON.CLOSE'),
           { duration: 3000 }
         );
         this.router.navigate(['/verify'], {

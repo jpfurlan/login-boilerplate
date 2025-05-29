@@ -1,64 +1,119 @@
 <div class="login-container">
-    <mat-card class="login-card">
+  <mat-card class="login-card">
 
-      <a class="back-link" routerLink="/login">
-        <mat-icon>arrow_back</mat-icon>
-        Voltar
-      </a>
-      
-      <h1 class="title">Criar Conta</h1>
-  
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="firstName" required />
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Sobrenome</mat-label>
-          <input matInput formControlName="lastName" required />
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" required />
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Telefone</mat-label>
-          <input matInput type="number" formControlName="phoneNumber" required />
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Gênero</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="MALE">Masculino</mat-option>
-            <mat-option value="FEMALE">Feminino</mat-option>
-          </mat-select>
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Senha</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-          </button>
-        </mat-form-field>
-  
-        <div class="links-container">
-          <a class="link" routerLink="/login" >Já tenho conta</a>
-        </div>
-  
+    <a class="back-link" routerLink="/login">
+      <mat-icon>arrow_back</mat-icon>
+      {{ 'REGISTER.BACK' | translate }}
+    </a>
+    
+    <h1 class="title">{{ 'REGISTER.TITLE' | translate }}</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.FIRST_NAME_LABEL' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="firstName"
+          placeholder="{{ 'REGISTER.FIRST_NAME_LABEL' | translate }}"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.LAST_NAME_LABEL' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="lastName"
+          placeholder="{{ 'REGISTER.LAST_NAME_LABEL' | translate }}"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.EMAIL_LABEL' | translate }}</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="{{ 'REGISTER.EMAIL_LABEL' | translate }}"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.PHONE_LABEL' | translate }}</mat-label>
+        <input
+          matInput
+          type="tel"
+          formControlName="phoneNumber"
+          placeholder="{{ 'REGISTER.PHONE_LABEL' | translate }}"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.GENDER_LABEL' | translate }}</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="MALE">
+            {{ 'REGISTER.GENDER_MALE' | translate }}
+          </mat-option>
+          <mat-option value="FEMALE">
+            {{ 'REGISTER.GENDER_FEMALE' | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ 'REGISTER.PASSWORD_LABEL' | translate }}</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="{{ 'REGISTER.PASSWORD_LABEL' | translate }}"
+        />
         <button
-          mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid"
-          [ngClass]="{'login-button': registerForm.valid, 'login-button-disabled': !registerForm.valid}">
-          Cadastrar
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          type="button"
+          [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
         </button>
-      
-      </form>
-    </mat-card>
-  </div>
-  
-  <div class="overlay" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
-  </div>
+      </mat-form-field>
+
+      <div class="links-container">
+        <a class="link" routerLink="/login">
+          {{ 'REGISTER.ALREADY_HAVE' | translate }}
+        </a>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!registerForm.valid"
+        [ngClass]="{
+          'login-button': registerForm.valid,
+          'login-button-disabled': !registerForm.valid
+        }"
+      >
+        {{ 'REGISTER.SUBMIT' | translate }}
+      </button>
+    </form>
+  </mat-card>
+</div>
+
+<div class="overlay" *ngIf="loading">
+    <mat-progress-spinner
+    mode="indeterminate"
+    diameter="60"
+    [attr.aria-label]="'OVERLAY.LOADING' | translate"
+  >
+  </mat-progress-spinner>
+
+
+</div>
+

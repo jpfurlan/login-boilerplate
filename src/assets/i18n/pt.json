@@ -1,0 +1,47 @@
+{
+    "LOGIN": {
+      "TITLE": "Entrar",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "Digite seu email",
+      "EMAIL_REQUIRED": "Email é obrigatório.",
+      "EMAIL_INVALID": "Email inválido.",
+      "PASSWORD_LABEL": "Senha",
+      "PASSWORD_PLACEHOLDER": "Digite sua senha",
+      "PASSWORD_REQUIRED": "Senha é obrigatória.",
+      "FORGOT": "Esqueci minha senha",
+      "REGISTER": "Criar conta",
+      "SUBMIT": "ENTRAR"
+    },
+    "ALERT": {
+      "VERIFY_PENDING": "A conta com o email {{email}} ainda não foi verificada, verifique o código enviado por email"
+    },
+    "SNACK": {
+      "LOGIN_SUCCESS": "Login realizado com sucesso!"
+    },
+    "REGISTER": {
+    "BACK": "Voltar",
+    "TITLE": "Criar Conta",
+    "FIRST_NAME_LABEL": "Nome",
+    "LAST_NAME_LABEL": "Sobrenome",
+    "EMAIL_LABEL": "Email",
+    "PHONE_LABEL": "Telefone",
+    "GENDER_LABEL": "Gênero",
+    "GENDER_MALE": "Masculino",
+    "GENDER_FEMALE": "Feminino",
+    "ALREADY_HAVE": "Já tenho conta",
+    "SUBMIT": "Cadastrar",
+    "PASSWORD_LABEL": "Senha",
+    "PASSWORD_PLACEHOLDER": "Digite sua senha"
+    },
+    "OVERLAY": {
+      "LOADING": ""
+    },
+    "VERIFY":{
+      "OTP_SENT": ""
+    },
+     "CONFIG": {
+      "PORTUGUESE": "",
+      "ENGLISH": ""
+     }
+  }
+  

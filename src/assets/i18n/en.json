@@ -1,0 +1,47 @@
+{
+    "LOGIN": {
+      "TITLE": "Sign in",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "Enter your email",
+      "EMAIL_REQUIRED": "Email is required.",
+      "EMAIL_INVALID": "Invalid email.",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter your password",
+      "PASSWORD_REQUIRED": "Password is required.",
+      "FORGOT": "Forgot password",
+      "REGISTER": "Create account",
+      "SUBMIT": "SIGN IN"
+    },
+    "ALERT": {
+      "VERIFY_PENDING": "The account with email {{email}} is not verified yet, please check your email for the code"
+    },
+    "SNACK": {
+      "LOGIN_SUCCESS": "Logged in successfully!"
+    },
+    "REGISTER": {
+    "BACK": "Back",
+    "TITLE": "Create Account",
+    "FIRST_NAME_LABEL": "First Name",
+    "LAST_NAME_LABEL": "Last Name",
+    "EMAIL_LABEL": "Email",
+    "PHONE_LABEL": "Phone",
+    "GENDER_LABEL": "Gender",
+    "GENDER_MALE": "Male",
+    "GENDER_FEMALE": "Female",
+    "ALREADY_HAVE": "Already have an account",
+    "SUBMIT": "Register",
+    "PASSWORD_LABEL": "Password",
+    "PASSWORD_PLACEHOLDER": "Enter your password"
+    },
+    "OVERLAY": {
+      "LOADING": ""
+    },
+    "VERIFY":{
+      "OTP_SENT": ""
+    },
+    "CONFIG": {
+     "PORTUGUESE": "",
+     "ENGLISH": ""
+    }
+  }
+  

@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlertService } from '../../shared/alert.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ import { AlertService } from '../../shared/alert.service';
     MatButtonModule,
     MatIconModule,
     RouterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -39,11 +41,22 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {
     const navigation = history.state;
     this.email = navigation.email || '';
     this.flow = navigation.flow || '';
+
+const rawLang = this.translate.getBrowserLang();
+
+const browserLang: string = (rawLang && rawLang.match(/pt|en/)) 
+  ? rawLang 
+  : 'pt';
+
+
+  this.translate.setDefaultLang('pt');
+  this.translate.use(browserLang);
   }
 
   hidePassword = true;

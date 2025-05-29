@@ -120,3 +120,15 @@
   display: flex;
   gap: 4px; // ajusta o espaçamento entre os ícones
 }
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.login-container {
+  width: 360px; 
+  margin: 0 auto;
+}
