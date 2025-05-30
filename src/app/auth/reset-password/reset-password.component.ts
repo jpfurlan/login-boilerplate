@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -11,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlertService } from '../../shared/alert.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,7 +30,8 @@ import { AlertService } from '../../shared/alert.service';
     MatCardModule,
     MatIconModule,
     RouterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule
   ],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
@@ -32,8 +39,8 @@ import { AlertService } from '../../shared/alert.service';
 export class ResetPasswordComponent implements OnInit {
   resetForm!: FormGroup;
   hidePassword = true;
-  email: string = '';
-  flow: string = '';
+  email = '';
+  flow = '';
   loading = false;
 
   constructor(
@@ -41,16 +48,20 @@ export class ResetPasswordComponent implements OnInit {
     private auth: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {
-    const navigation = history.state;
-    this.email = navigation.email || '';
-    this.flow = navigation.flow || '';
+    const nav = history.state;
+    this.email = nav.email || '';
+    this.flow = nav.flow || '';
   }
 
   ngOnInit(): void {
     this.resetForm = this.fb.group({
-      email: [this.email, [Validators.email]],
+      email: [
+        this.email,
+        [Validators.email]
+      ],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
@@ -58,25 +69,41 @@ export class ResetPasswordComponent implements OnInit {
 
   onResetPassword() {
     this.loading = true;
-    if (this.resetForm.invalid) return;
+    if (this.resetForm.invalid) {
+      this.loading = false;
+      return;
+    }
 
-    if (this.resetForm.value.password !== this.resetForm.value.confirmPassword) {
-      this.snackBar.open('As senhas não coincidem.', 'Fechar', { duration: 3000 });
+    if (
+      this.resetForm.value.password !==
+      this.resetForm.value.confirmPassword
+    ) {
+      this.snackBar.open(
+        this.translate.instant('RESET.PASSWORD_MISMATCH'),
+        this.translate.instant('COMMON.CLOSE'),
+        { duration: 3000 }
+      );
+      this.loading = false;
       return;
     }
 
     this.auth.resetPassword(this.resetForm.value).subscribe({
       next: () => {
         this.loading = false;
-        //this.snackBar.open('Senha redefinida com sucesso.', 'Fechar', { duration: 3000 });
-        this.alert.success("Senha redefinida com sucesso., faça o login ");
+        this.alert.success(
+          this.translate.instant('RESET.SUCCESS_MESSAGE')
+        );
         this.router.navigate(['/login'], {
           state: { email: this.resetForm.value.email }
         });
       },
       error: err => {
         this.loading = false;
-        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
+        this.snackBar.open(
+          err.error.message,
+          this.translate.instant('COMMON.CLOSE'),
+          { duration: 3000 }
+        );
       }
     });
   }

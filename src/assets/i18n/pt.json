@@ -42,6 +42,45 @@
      "CONFIG": {
       "PORTUGUESE": "",
       "ENGLISH": ""
-     }
+     },
+     "RECOVERY": {
+      "BACK": "Voltar",
+      "TITLE": "Esqueci a Senha",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "Digite seu email",
+      "SUBMIT": "Enviar OTP"
+    },
+    "SNACK": {
+      "OTP_SENT": "Código OTP enviado para seu e-mail.",
+      "CLOSE": "Fechar"
+    },
+    "VERIFY": {
+      "BACK": "Voltar",
+      "TITLE": "Verificar Código",
+      "OTP_LABEL": "Código OTP",
+      "SUBMIT": "Verificar",
+      "LOADING": "Verificando...",
+      "OTP_SENT": "Código OTP enviado para o email {{email}}",
+      "PLEASE_RESET": "Agora altere sua senha.",
+      "SUCCESS": "Conta verificada com sucesso, faça o login"
+    },
+    "RESET": {
+      "TITLE": "Redefinir Senha",
+      "EMAIL_LABEL": "Email",
+      "NEW_PASSWORD_LABEL": "Nova Senha",
+      "NEW_PASSWORD_PLACEHOLDER": "Digite a nova senha",
+      "CONFIRM_PASSWORD_LABEL": "Confirmar Senha",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Repita a nova senha",
+      "SHOW_PASSWORD": "Mostrar senha",
+      "HIDE_PASSWORD": "Ocultar senha",
+      "BACK": "Voltar",
+      "SUBMIT": "Redefinir",
+      "LOADING": "Processando...",
+      "PASSWORD_MISMATCH": "As senhas não coincidem.",
+      "SUCCESS_MESSAGE": "Senha redefinida com sucesso!"
+    },
+    "COMMON": {
+      "CLOSE": "Fechar"
+    }
   }
   

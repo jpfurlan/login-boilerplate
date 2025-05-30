@@ -8,9 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlertService } from '../../shared/alert.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify',
@@ -23,16 +24,17 @@ import { AlertService } from '../../shared/alert.service';
     MatButtonModule,
     MatCardModule,
     RouterModule,
-    MatIcon,
-    MatProgressSpinnerModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    TranslateModule
   ],
   templateUrl: './verify.component.html',
   styleUrls: ['./verify.component.scss']
 })
 export class VerifyComponent implements OnInit {
   verifyForm!: FormGroup;
-  email: string = '';
-  flow: string = '';
+  email = '';
+  flow = '';
   loading = false;
 
   constructor(
@@ -40,11 +42,18 @@ export class VerifyComponent implements OnInit {
     private auth: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {
+    // idioma…
     const navigation = history.state;
     this.email = navigation.email || '';
     this.flow = navigation.flow || '';
+
+    const raw = this.translate.getBrowserLang();
+    const lang = raw && raw.match(/pt|en/) ? raw : 'pt';
+    this.translate.setDefaultLang('pt');
+    this.translate.use(lang);
   }
 
   ngOnInit(): void {
@@ -52,39 +61,49 @@ export class VerifyComponent implements OnInit {
       email: [this.email],
       otp: ['', Validators.required],
     });
-    this.alert.success("Código OTP enviado para o email " + this.email);
+
+    // Mensagem traduzida ao inicializar
+    this.alert.success(
+      this.translate.instant('VERIFY.OTP_SENT', { email: this.email })
+    );
   }
 
   onVerify() {
+    if (this.verifyForm.invalid) {
+      return;
+    }
     this.loading = true;
-    if (this.verifyForm.invalid) return;
+
     this.auth.verify(this.verifyForm.value).subscribe({
       next: () => {
         this.loading = false;
-        if(this.flow == 'recovery') {
-          this.snackBar.open('Agora altere sua senha.', 'Fechar', { duration: 3000 });
+
+        if (this.flow === 'recovery') {
+          this.snackBar.open(
+            this.translate.instant('VERIFY.PLEASE_RESET'),
+            this.translate.instant('COMMON.CLOSE'),
+            { duration: 3000 }
+          );
           this.router.navigate(['/reset-password'], {
             state: { email: this.email, flow: 'recovery' }
           });
-        } else if(this.flow == 'verify') {
-          this.alert.success("Conta verificada com sucesso, faça o login");
-          //this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
-          this.router.navigate(['/login'], {
-            state: { email: this.verifyForm.value.email }
-          });
         } else {
-          this.alert.success("Conta verificada com sucesso, faça o login ");
-          //this.snackBar.open('Conta verificada com sucesso.', 'Fechar', { duration: 3000 });
+          this.alert.success(
+            this.translate.instant('VERIFY.SUCCESS')
+          );
           this.router.navigate(['/login'], {
             state: { email: this.verifyForm.value.email }
           });
         }
-
       },
       error: err => {
         this.loading = false;
-        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 })
-      } 
+        this.snackBar.open(
+          err.error.message,
+          this.translate.instant('COMMON.CLOSE'),
+          { duration: 3000 }
+        );
+      }
     });
   }
 }

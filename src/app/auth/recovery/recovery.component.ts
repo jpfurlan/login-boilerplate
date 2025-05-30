@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recovery',
@@ -23,7 +25,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     RouterModule,
     MatIcon,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule,
+    MatIconModule
   ],
   templateUrl: './recovery.component.html',
   styleUrls: ['./recovery.component.scss']
@@ -35,8 +39,18 @@ export class RecoveryComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    const rawLang = this.translate.getBrowserLang();
+
+    const browserLang: string = (rawLang && rawLang.match(/pt|en/)) 
+      ? rawLang 
+      : 'pt';
+  
+    this.translate.setDefaultLang('pt');
+    this.translate.use(browserLang);
+  }
 
   loading = false;
 
@@ -52,8 +66,9 @@ export class RecoveryComponent implements OnInit {
     this.auth.sendOtp(this.recoveryForm.value).subscribe({
       next: () => {
         this.loading = false;
-        this.snackBar.open('Código OTP enviado para seu e-mail.', 'Fechar', { duration: 3000 });
-        //this.auth.emailTemp = this.registerForm.value.email;
+        this.translate.instant('SNACK.OTP_SENT'),
+        this.translate.instant('SNACK.CLOSE'),
+        { duration: 3000 }
         this.router.navigate(['/verify'], {
           state: { email: this.recoveryForm.value.email, flow: 'recovery' }
         });
