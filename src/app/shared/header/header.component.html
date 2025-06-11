@@ -8,10 +8,10 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="switchLang('pt')">
-        Português
+        {{ 'INTERNATIONALIZATION.PORTUGUESE' | translate }}
       </button>
       <button mat-menu-item (click)="switchLang('en')">
-        English
+        {{ 'INTERNATIONALIZATION.ENGLISH' | translate }}
       </button>
     </mat-menu>
   </div>

@@ -45,7 +45,7 @@ export class VerifyComponent implements OnInit {
     private alert: AlertService,
     private translate: TranslateService
   ) {
-    // idioma…
+
     const navigation = history.state;
     this.email = navigation.email || '';
     this.flow = navigation.flow || '';

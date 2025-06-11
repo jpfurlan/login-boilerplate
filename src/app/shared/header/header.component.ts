@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,14 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatMenuModule, MatButtonModule, MatIconModule,TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   currentLang!: string;
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService,) {
     this.translate.addLangs(['pt','en']);
 
     const saved = localStorage.getItem('lang');

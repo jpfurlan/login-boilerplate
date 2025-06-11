@@ -44,10 +44,12 @@
         <mat-label>{{ 'REGISTER.PHONE_LABEL' | translate }}</mat-label>
         <input
           matInput
-          type="tel"
+          type="text"
+          mask="(00) 00000-0000"
           formControlName="phoneNumber"
           placeholder="{{ 'REGISTER.PHONE_LABEL' | translate }}"
           required
+          maxlength="15"
         />
       </mat-form-field>
 

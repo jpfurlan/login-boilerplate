@@ -90,6 +90,10 @@
     },
     "COMMON": {
       "CLOSE": "Fechar"
+    },
+    "INTERNATIONALIZATION": {
+      "PORTUGUESE": "Português",
+      "ENGLISH": "Inglês"
     }
   }
   

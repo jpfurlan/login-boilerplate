@@ -83,8 +83,7 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         this.loading = false;
-        //this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 });
-        
+
       if(err.error.status == 'PENDING_VERIFICATION'){
           this.router.navigate(['/verify'], {
             state: { email: this.loginForm.value.email, flow: 'verify' }
