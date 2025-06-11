@@ -71,8 +71,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
       gender: [Gender.MALE, Validators.required],
-      password: ['', Validators.required],
-      role: ['USER']
+      password: ['', Validators.required]
     });
   }
 
@@ -85,8 +84,7 @@ export class RegisterComponent implements OnInit {
       email:       this.registerForm.value.email,
       phoneNumber: this.registerForm.value.phoneNumber,
       gender:      this.registerForm.value.gender as Gender,
-      password:    this.registerForm.value.password,
-      role:        this.registerForm.value.role
+      password:    this.registerForm.value.password
     };
     this.auth.register(this.registerForm.value).subscribe({
       next: response => {
