@@ -1,17 +1,18 @@
 <header class="app-header">
-    <div class="logo">Login Boilerplate</div>
-    <div class="lang-menu">
-      <button mat-button [matMenuTriggerFor]="langMenu" class="lang-button">
-        {{ currentLang === 'pt' ? 'Português' : 'English' }}
-        <mat-icon>arrow_drop_down</mat-icon>
+  <div class="logo">Login Boilerplate</div>
+
+  <div class="lang-menu">
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ currentLang === 'pt' ? 'Português' : 'English' }}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="switchLang('pt')">
+        Português
       </button>
-      <mat-menu #langMenu="matMenu">
-        <button mat-menu-item (click)="switchLang('pt')">
-          Português
-        </button>
-        <button mat-menu-item (click)="switchLang('en')">
-          English
-        </button>
-      </mat-menu>
-    </div>
-  </header>
+      <button mat-menu-item (click)="switchLang('en')">
+        English
+      </button>
+    </mat-menu>
+  </div>
+</header>

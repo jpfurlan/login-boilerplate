@@ -49,14 +49,17 @@ export class RegisterComponent implements OnInit {
     private translate: TranslateService
   ) {
 
-  const rawLang = this.translate.getBrowserLang();
+    this.translate.addLangs(['pt','en']);
 
-  const browserLang: string = (rawLang && rawLang.match(/pt|en/)) 
-    ? rawLang 
-    : 'pt';
-
-  this.translate.setDefaultLang('pt');
-  this.translate.use(browserLang);
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang && ['pt','en'].includes(savedLang)) {
+      this.translate.use(savedLang);
+    } 
+    else {
+      const raw = this.translate.getBrowserLang() || '';
+      const browserLang = raw.match(/pt|en/) ? raw : 'pt';
+      this.translate.use(browserLang);
+    }
   }
 
   loading = false;

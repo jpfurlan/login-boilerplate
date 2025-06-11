@@ -13,20 +13,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  currentLang: string;
+  currentLang!: string;
 
   constructor(private translate: TranslateService) {
-    translate.addLangs(['pt', 'en']);
-    translate.setDefaultLang('pt');
+    this.translate.addLangs(['pt','en']);
 
-    const rawLang = this.translate.getBrowserLang();
-    const browserLang = rawLang && rawLang.match(/pt|en/) ? rawLang : 'pt';
-    this.currentLang = browserLang;
-    translate.use(browserLang);
+    const saved = localStorage.getItem('lang');
+    if (saved && ['pt','en'].includes(saved)) {
+      this.currentLang = saved;
+    } else {
+      const raw = this.translate.getBrowserLang() || '';
+      this.currentLang = raw.match(/pt|en/) ? raw : 'pt';
+    }
+
+    this.translate.setDefaultLang('pt');
+    this.translate.use(this.currentLang);
   }
 
-  switchLang(lang: string) {
+  switchLang(lang: 'pt' | 'en') {
     this.currentLang = lang;
     this.translate.use(lang);
+    localStorage.setItem('lang', lang);
   }
 }

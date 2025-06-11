@@ -54,6 +54,18 @@ export class ResetPasswordComponent implements OnInit {
     const nav = history.state;
     this.email = nav.email || '';
     this.flow = nav.flow || '';
+
+        this.translate.addLangs(['pt','en']);
+
+        const savedLang = localStorage.getItem('lang');
+        if (savedLang && ['pt','en'].includes(savedLang)) {
+          this.translate.use(savedLang);
+        } 
+        else {
+          const raw = this.translate.getBrowserLang() || '';
+          const browserLang = raw.match(/pt|en/) ? raw : 'pt';
+          this.translate.use(browserLang);
+        }
   }
 
   ngOnInit(): void {
