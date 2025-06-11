@@ -19,25 +19,34 @@
       "LOGIN_SUCCESS": "Login realizado com sucesso!"
     },
     "REGISTER": {
-    "BACK": "Voltar",
-    "TITLE": "Criar Conta",
-    "FIRST_NAME_LABEL": "Nome",
-    "LAST_NAME_LABEL": "Sobrenome",
-    "EMAIL_LABEL": "Email",
-    "PHONE_LABEL": "Telefone",
-    "GENDER_LABEL": "Gênero",
-    "GENDER_MALE": "Masculino",
-    "GENDER_FEMALE": "Feminino",
-    "ALREADY_HAVE": "Já tenho conta",
-    "SUBMIT": "Cadastrar",
-    "PASSWORD_LABEL": "Senha",
-    "PASSWORD_PLACEHOLDER": "Digite sua senha"
+      "BACK": "Voltar",
+      "TITLE": "Criar Conta",
+      "FIRST_NAME_LABEL": "Nome",
+      "LAST_NAME_LABEL": "Sobrenome",
+      "EMAIL_LABEL": "Email",
+      "PHONE_LABEL": "Telefone",
+      "GENDER_LABEL": "Gênero",
+      "GENDER_MALE": "Masculino",
+      "GENDER_FEMALE": "Feminino",
+      "ALREADY_HAVE": "Já tenho conta",
+      "SUBMIT": "Cadastrar",
+      "PASSWORD_LABEL": "Senha",
+      "PASSWORD_PLACEHOLDER": "Digite sua senha",
+      "ALREADY_VERIFIED": "Conta já existe, faça o login",
+      "PENDING_VERIFICATION": "Conta criada mas não verificada, faça o login"
     },
     "OVERLAY": {
       "LOADING": ""
     },
     "VERIFY":{
-      "OTP_SENT": ""
+      "BACK": "Voltar",
+      "TITLE": "Verificar Código",
+      "OTP_LABEL": "Código OTP",
+      "SUBMIT": "Verificar",
+      "LOADING": "Verificando...",
+      "OTP_SENT": "Código OTP enviado para o email: {{email}}",
+      "PLEASE_RESET": "Agora resete sua senha.",
+      "SUCCESS": "Conta verificada com sucesso, Faça o login"
     },
      "CONFIG": {
       "PORTUGUESE": "",

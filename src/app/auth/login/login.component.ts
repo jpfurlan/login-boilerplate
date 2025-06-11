@@ -83,10 +83,9 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         this.loading = false;
-        this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 });
+        //this.snackBar.open(err.error.message, 'Fechar', { duration: 3000 });
         
       if(err.error.status == 'PENDING_VERIFICATION'){
-        this.alert.success("A conta com o email " + this.loginForm.value.email + " ainda não foi verificada, verifique o código enviado por email");
           this.router.navigate(['/verify'], {
             state: { email: this.loginForm.value.email, flow: 'verify' }
           });

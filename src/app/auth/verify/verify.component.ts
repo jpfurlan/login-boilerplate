@@ -50,10 +50,17 @@ export class VerifyComponent implements OnInit {
     this.email = navigation.email || '';
     this.flow = navigation.flow || '';
 
-    const raw = this.translate.getBrowserLang();
-    const lang = raw && raw.match(/pt|en/) ? raw : 'pt';
-    this.translate.setDefaultLang('pt');
-    this.translate.use(lang);
+    this.translate.addLangs(['pt','en']);
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang && ['pt','en'].includes(savedLang)) {
+      this.translate.use(savedLang);
+    } 
+    else {
+      const raw = this.translate.getBrowserLang() || '';
+      const browserLang = raw.match(/pt|en/) ? raw : 'pt';
+      this.translate.use(browserLang);
+    }
   }
 
   ngOnInit(): void {
@@ -62,7 +69,6 @@ export class VerifyComponent implements OnInit {
       otp: ['', Validators.required],
     });
 
-    // Mensagem traduzida ao inicializar
     this.alert.success(
       this.translate.instant('VERIFY.OTP_SENT', { email: this.email })
     );

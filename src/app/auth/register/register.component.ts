@@ -103,10 +103,10 @@ export class RegisterComponent implements OnInit {
       error: err => {
         this.loading = false;
         if (err.error.status == 'ALREADY_VERIFIED') {
-          this.alert.warning("Conta já existe, faça o login");
+          this.alert.error(this.translate.instant('REGISTER.ALREADY_VERIFIED'));
           this.router.navigate(['/login']);
         } else if(err.error.status == 'PENDING_VERIFICATION'){
-          this.alert.success("Conta já existe mas não foi verificada, faça o login");
+          this.alert.error(this.translate.instant('REGISTER.PENDING_VERIFICATION'));
           this.router.navigate(['/login'], {
             state: { email: this.registerForm.value.email }
           });

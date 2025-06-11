@@ -19,19 +19,21 @@
       "LOGIN_SUCCESS": "Logged in successfully!"
     },
     "REGISTER": {
-    "BACK": "Back",
-    "TITLE": "Create Account",
-    "FIRST_NAME_LABEL": "First Name",
-    "LAST_NAME_LABEL": "Last Name",
-    "EMAIL_LABEL": "Email",
-    "PHONE_LABEL": "Phone",
-    "GENDER_LABEL": "Gender",
-    "GENDER_MALE": "Male",
-    "GENDER_FEMALE": "Female",
-    "ALREADY_HAVE": "Already have an account",
-    "SUBMIT": "Register",
-    "PASSWORD_LABEL": "Password",
-    "PASSWORD_PLACEHOLDER": "Enter your password"
+      "BACK": "Back",
+      "TITLE": "Create Account",
+      "FIRST_NAME_LABEL": "First Name",
+      "LAST_NAME_LABEL": "Last Name",
+      "EMAIL_LABEL": "Email",
+      "PHONE_LABEL": "Phone",
+      "GENDER_LABEL": "Gender",
+      "GENDER_MALE": "Male",
+      "GENDER_FEMALE": "Female",
+      "ALREADY_HAVE": "Already have an account",
+      "SUBMIT": "Register",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter your password",
+      "ALREADY_VERIFIED": "Account already created, please login",
+      "PENDING_VERIFICATION": "Account already created but not verified, please login"
     },
     "OVERLAY": {
       "LOADING": ""
